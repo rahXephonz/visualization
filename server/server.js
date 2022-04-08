@@ -18,6 +18,10 @@ io.on('connect', socket => {
   events.on('temperature', value => {
     socket.emit('temperature', value)
   })
+
+  events.on('description', value => {
+    socket.emit('description', value)
+  })
 })
 
 // This function will be changed for the J5 sensor event
@@ -28,6 +32,16 @@ io.on('connect', socket => {
 setInterval(() => {
   const temperature = Math.round(Math.random() * 10)
   events.emit('temperature', temperature)
+}, 1000)
+
+setInterval(() => {
+  const description = ['Cool', 'Warm', 'Normal', 'Hot']
+  const rand = Math.random()
+  const totalDescription = description.length
+  const randIndex = Math.floor(rand * totalDescription)
+  const randomDescription = description[randIndex]
+
+  events.emit('description', randomDescription)
 }, 1000)
 
 
